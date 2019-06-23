@@ -1,6 +1,10 @@
 package pe.edu.cibertec.animacionestransiciones;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +15,12 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnZoom, btnClockWise, btnFade, btnTranslade;
+    private Button btnZoom, btnClockWise, btnFade, btnTranslade, btnTransition;
     private ImageView imageView;
     private Animation animation;
     private Context context;
+    private Intent intent;
+    private ActivityOptions activityOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btnClockWise = findViewById(R.id.btnClockWise);
         btnFade = findViewById(R.id.btnFade);
         btnTranslade = findViewById(R.id.btnTranslate);
+        btnTransition = findViewById(R.id.btnTransition);
         imageView = findViewById(R.id.imageView);
         context = getApplicationContext();
 
@@ -57,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 animation = AnimationUtils.loadAnimation(context, R.anim.translate);
                 imageView.startAnimation(animation);
+            }
+        });
+
+        btnTransition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(context, TransitionActivity.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    activityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, imageView, getString(R.string.app_name));
+                    startActivity(intent, activityOptions.toBundle());
+                }
             }
         });
     }
