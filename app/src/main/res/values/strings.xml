@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AnimacionesTransiciones</string>
+    <string name="btnZoom">Zoom</string>
+    <string name="btnClockWise">Clock Wise</string>
+    <string name="btnTranslate">Translate</string>
+    <string name="btnFade">Fade</string>
+</resources>
